@@ -52,12 +52,14 @@ module.exports = {
         }
     },
     async deleteThought(req, res) {
+
         try {
-            const thought = Thought.findOneAndDelete({_id: req.params.thoughtId});
+            // const thought = Thought.findOneAndDelete({_id: req.params.thoughtId});
+            const thought = Thought.findByIdAndDelete(req.params.thoughtId);
 
             if (!thought) {
                 res.json({ message: "Can't delete that thought!" })
-            }
+            }   
             res.json({ message: "Thought deleted!" });
         } catch (err) {
             res.status(500).json(err)
@@ -69,7 +71,7 @@ module.exports = {
         try {
             const reactionData = Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId},
-                { $push: { reactions: req.body }},
+                { $addToSet: { reactions: req.body }},
                 { new: true, runValidators: true}
             );
 
