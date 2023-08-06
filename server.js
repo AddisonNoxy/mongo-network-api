@@ -15,23 +15,3 @@ db.once('open', () => {
         console.log(`Listening on port ${PORT}!`)
     })
 });
-
-// const mongoString = 'mongodb://127.0.0.1:27017';
-
-// const client = new MongoClient(mongoString);
-
-// let db;
-
-// const dbName = 'thoughtsDB';
-
-// client.connect()
-//     .then(() => {
-//         console.log("Connected to MongoDB!");
-//         db = client.db(dbName);
-
-//         app.listen(PORT, () => {
-//             console.log(`App listening on ${PORT}.`);
-//         })
-//     }).catch((err) => {
-//         console.error(err);
-//     })

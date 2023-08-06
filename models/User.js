@@ -15,7 +15,8 @@ const userSchema = new Schema(
                 validator: function(v) {
                     return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
                 }
-            } },
+            } 
+        },
         thoughts: [
             {
                 type: Schema.Types.ObjectId,
