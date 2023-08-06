@@ -34,7 +34,7 @@ module.exports = {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
                 req.body,
-                { runValidators: true }
+                { new: true, runValidators: true }
             );
 
             res.json(user);
@@ -44,7 +44,7 @@ module.exports = {
     },
     async deleteUser(req, res) {
         try {
-            const user = await User.deleteOne({_id: req.params.userId});
+            const user = await User.findOneAndDelete({_id: req.params.userId});
             res.json({ message: "User deleted!"});
         } catch (err) {
             res.status(500).json(err);
