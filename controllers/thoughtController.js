@@ -23,7 +23,7 @@ module.exports = {
     async createThought(req, res) {
         try {
             const thoughtData = await Thought.create(req.body);
-            
+
             // const user = await User.findOneAndUpdate(
             //     { _id: req.body.userId },
             //     { $addToSet: { thoughts: thought._id}},
@@ -55,7 +55,7 @@ module.exports = {
 
         try {
             // const thought = Thought.findOneAndDelete({_id: req.params.thoughtId});
-            const thought = Thought.findByIdAndDelete(req.params.thoughtId);
+            const thought = await Thought.findByIdAndDelete(req.params.thoughtId);
 
             if (!thought) {
                 res.json({ message: "Can't delete that thought!" })
@@ -69,7 +69,7 @@ module.exports = {
 
         console.log(req.body);
         try {
-            const reactionData = Thought.findOneAndUpdate(
+            const reactionData = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId},
                 { $addToSet: { reactions: req.body }},
                 { new: true, runValidators: true}
@@ -86,9 +86,9 @@ module.exports = {
     },
     async deleteReaction(req, res) {
         try {
-            const reactionData = Thought.findOneAndUpdate(
+            const reactionData = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId},
-                { $pull: { reactions: reactionId }}
+                { $pull: { reactions: {reactionId: req.params.reactionId} }}
             );
 
             res.json({ message: "Reaction deleted!" });
